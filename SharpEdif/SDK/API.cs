@@ -181,8 +181,6 @@ namespace SharpEdif
         {
             SharpEdif.AllocConsole();
             Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
-            SharpEdif.LoadACEs();
-
             return 0;
         }
 
@@ -662,6 +660,9 @@ namespace SharpEdif
                                               byte* strBuf, short maxLen)
         {
             Utils.Log("GetExpressionParam got called");
+#if EDITTIME
+            Utils.CopyStringToMemoryA(SDK.expressionParameterNames[code][param], strBuf, maxLen);
+#endif
         }
 
         [DllExport("GetRunObjectSurface",CallingConvention.StdCall)]

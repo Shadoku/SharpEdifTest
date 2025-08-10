@@ -23,7 +23,7 @@ namespace SharpEdif.User
             return rdPtr->runData.ExampleString == testString;
         }
 
-        [Expression("Get string", "GetStr$(")]
+        [Expression("Get string", "GetStr$(", new[]{"String to get"})]
         public static string ExpressionExample1(LPRDATA* rdPtr, string test)
         {
             return test;

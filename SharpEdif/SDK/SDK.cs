@@ -10,6 +10,10 @@ namespace SharpEdif
 {
     public static unsafe class SDK
     {
+        static SDK()
+        {
+            SharpEdif.LoadACEs();
+        }
         public const string extName = Extension.ExtensionName;
         public const string extAuthor = Extension.ExtensionAuthor;
         public const string extCopyright = Extension.ExtensionCopyright;

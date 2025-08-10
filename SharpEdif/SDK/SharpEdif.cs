@@ -30,16 +30,21 @@ namespace SharpEdif
 
     public class ACEAttribute : Attribute
     {
-      
+        public string MenuName { get; }
+        public string EditorName { get; }
+        public string[] ParameterNames { get; }
+
         public ACEAttribute(string menuName, string editorName)
+            : this(menuName, editorName, Array.Empty<string>())
         {
-           
-        }
-        public ACEAttribute(string menuName, string editorName,string[] parameterNames)
-        {
-            
         }
 
+        public ACEAttribute(string menuName, string editorName, string[] parameterNames)
+        {
+            MenuName = menuName;
+            EditorName = editorName;
+            ParameterNames = parameterNames ?? Array.Empty<string>();
+        }
     }
     public class ConditionAttribute : ACEAttribute
     {
@@ -62,6 +67,10 @@ namespace SharpEdif
     public class ExpressionAttribute : ACEAttribute
     {
         public ExpressionAttribute(string menuName, string editorName) : base(menuName, editorName)
+        {
+        }
+
+        public ExpressionAttribute(string menuName, string editorName, string[] parameterNames) : base(menuName, editorName, parameterNames)
         {
         }
     }
