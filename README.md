@@ -74,7 +74,7 @@ Zip that folder, and it's ready to be released for anybody's use!
 | 100% | Properties | Allow editing of the extension's properties panel. |
 | 20% | Implement All Structures | Implement all missing/empty structures from the original SDK. 
 | 0% | Parameter Names | Allowing naming of parameters. |
-| 0% | Condition Events | Implement fire condition events (The green conditions). |
+| 100% | Condition Events | Implement fire condition events (The green conditions). |
 | 0% | Rendering API | Expose the Rendering API. ||
 
 #  Full Credits
