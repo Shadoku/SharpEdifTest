@@ -497,7 +497,7 @@ public static class Program
         insts.Add(new Instruction(OpCodes.Stsfld,conditionEditorNames));
 
         insts.Add(new Instruction(OpCodes.Ldc_I4,conditions.Count));
-        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new ArraySig(stringType,1))));
+        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new SZArraySig(stringType))));
         insts.Add(new Instruction(OpCodes.Stsfld,conditionParameterNames));
         
         
@@ -515,7 +515,7 @@ public static class Program
         insts.Add(new Instruction(OpCodes.Stsfld,actionEditorNames));
         
         insts.Add(new Instruction(OpCodes.Ldc_I4,actions.Count));
-        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new ArraySig(stringType,1))));
+        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new SZArraySig(stringType))));
         insts.Add(new Instruction(OpCodes.Stsfld,actionParameterNames));
         
         
@@ -533,7 +533,7 @@ public static class Program
         insts.Add(new Instruction(OpCodes.Stsfld,expressionEditorNames));
         
         insts.Add(new Instruction(OpCodes.Ldc_I4,expressions.Count));
-        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new ArraySig(stringType,1))));
+        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new SZArraySig(stringType))));
         insts.Add(new Instruction(OpCodes.Stsfld,expressionParameterNames));
         
         
