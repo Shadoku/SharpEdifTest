@@ -74,24 +74,46 @@ namespace SharpEdif
         public PropType Type;
         public int Options;
         public int CreateParam;
+        public string Value;
+        public IntPtr ValuePtr;
+
+        public void SetValue(string value)
+        {
+            Value = value ?? string.Empty;
+            if (ValuePtr != IntPtr.Zero)
+                Marshal.FreeHGlobal(ValuePtr);
+            ValuePtr = Marshal.StringToHGlobalAnsi(Value);
+        }
+
+        public IntPtr GetValuePtr()
+        {
+            if (ValuePtr == IntPtr.Zero)
+                SetValue(Value ?? string.Empty);
+            return ValuePtr;
+        }
 
         public static FusionProp CreateStatic(string name, string info)
         {
-            return new FusionProp()
+            var prop = new FusionProp
             {
                 Name = name,
                 Info = info,
                 Type = PropType.Static
             };
+            prop.SetValue(string.Empty);
+            return prop;
         }
-        public static FusionProp CreateEditString(string name, string info)
+
+        public static FusionProp CreateEditString(string name, string info, string defaultValue = "")
         {
-            return new FusionProp()
+            var prop = new FusionProp
             {
                 Name = name,
                 Info = info,
                 Type = PropType.EditString
             };
+            prop.SetValue(defaultValue);
+            return prop;
         }
     }
 
@@ -120,7 +142,7 @@ namespace SharpEdif
                     data[6*i+2] = (int)Marshal.StringToHGlobalAnsi(item.Info).ToPointer();
                     data[6*i+3] = (int)item.Type;
                     data[6*i+4] = item.Options;
-                    data[6*i+5] = (int)Marshal.StringToHGlobalAnsi("Default value").ToPointer();;
+                    data[6*i+5] = (int)item.GetValuePtr();
                     
                 }
                 data[Items.Count*6] = 0;

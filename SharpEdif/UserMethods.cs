@@ -13,7 +13,7 @@ namespace SharpEdif.User
         public static void FillProperties(FusionProperties props)
         {
             props.Items.Add(FusionProp.CreateStatic("Test 1","The info"));
-            props.Items.Add(FusionProp.CreateEditString("Test 2","The info"));
+            props.Items.Add(FusionProp.CreateEditString("Test 2","The info","Default value"));
         }
     }
 }

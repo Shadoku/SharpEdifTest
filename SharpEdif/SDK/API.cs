@@ -725,15 +725,15 @@ namespace SharpEdif
         public static int GetProperties(mv* mV, LPEDATA* edPtr, bool bMasterItem)
         {
             Utils.Log("GetProperties got called");
-            /*var props = edPtr->editData.props;
+            var props = edPtr->editData.props;
             if (!props.propsFilled)
             {
-                UserMethods.FillProperties(edPtr->editData.props);
-                edPtr->editData.props.InvalidateData();
+                UserMethods.FillProperties(props);
+                props.InvalidateData();
                 props.propsFilled = true;
             }
-            
-            SDK.mvInsertProps(mV,edPtr,edPtr->editData.props.ObtainData(),1,1);*/
+
+            SDK.mvInsertProps(mV, edPtr, props.ObtainData(), 1, 1);
             return 1;
         }
 
@@ -747,12 +747,20 @@ namespace SharpEdif
         public static void GetPropValue(mv* mV, LPEDATA* edPtr, uint nPropID)
         {
             Utils.Log("GetPropValue got called");
+            var prop = edPtr->editData.props.Items.FirstOrDefault(p => p.Id == nPropID);
+            if (prop == null)
+                return;
+            SDK.MvCallFunction(mV, edPtr, 4, (int)prop.GetValuePtr(), (int)nPropID, 0);
         }
 
         [DllExport("SetPropValue",CallingConvention.StdCall)]
         public static void SetPropValue(mv* mV, LPEDATA* edPtr, uint nPropID, void* lParam)
         {
             Utils.Log("SetPropValue got called");
+            var prop = edPtr->editData.props.Items.FirstOrDefault(p => p.Id == nPropID);
+            if (prop == null)
+                return;
+            prop.SetValue(SDK.PtrToString(lParam));
         }
 
         [DllExport("IsPropEnabled",CallingConvention.StdCall)]
