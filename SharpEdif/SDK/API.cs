@@ -662,6 +662,9 @@ namespace SharpEdif
                                               byte* strBuf, short maxLen)
         {
             Utils.Log("GetExpressionParam got called");
+#if EDITTIME
+            Utils.CopyStringToMemoryA(SDK.expressionParameterNames[code][param], strBuf, maxLen);
+#endif
         }
 
         [DllExport("GetRunObjectSurface",CallingConvention.StdCall)]
