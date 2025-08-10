@@ -245,30 +245,30 @@ int*			mvHInst;				// Application HINSTANCE
 	fixed int				mvAdditionalFncs[16];
 	}
 
-	public struct fpLevObj
-	{
+        public unsafe struct fpLevObj
+        {
+                public void* Pointer;
+        }
 
-	}
+        public unsafe struct fpObjInfo
+        {
+                public void* Pointer;
+        }
 
-	public struct fpObjInfo
-	{
+        public unsafe struct ENUMELTPROC
+        {
+                public void* Procedure;
+        }
 
-	}
+        public struct LPARAM
+        {
+                public IntPtr Value;
+        }
 
-	public struct ENUMELTPROC
-	{
-
-	}
-
-	public struct LPARAM
-	{
-
-	}
-
-	public struct LPLOGFONT
-	{
-
-	}
+        public unsafe struct LPLOGFONT
+        {
+                public LOGFONT* Value;
+        }
 
 
 
@@ -684,25 +684,31 @@ int*			mvHInst;				// Application HINSTANCE
 		public int* dataInside;
 	}
 
-	public struct WPARAM
-	{
+        public struct WPARAM
+        {
+                public IntPtr Value;
+        }
 
-	}
+        public unsafe struct cSurface
+        {
+                public int Width;
+                public int Height;
+                public int Pitch;
+                public void* Pixels;
+        }
 
-	public struct cSurface
-	{
+        public unsafe struct CRunFrame
+        {
+                public int Width;
+                public int Height;
+                public void* Objects;
+                public void* Events;
+        }
 
-	}
-
-	public struct CRunFrame
-	{
-
-	}
-
-	public struct CDebugger
-	{
-
-	}
+        public struct CDebugger
+        {
+                public bool IsActive;
+        }
 
 	public struct CValue
 	{
@@ -910,15 +916,28 @@ int*			mvHInst;				// Application HINSTANCE
 		bool m_bLoading;
 	}
 
-	public struct LOGFONT
-	{
+        public unsafe struct LOGFONT
+        {
+                public int lfHeight;
+                public int lfWidth;
+                public int lfEscapement;
+                public int lfOrientation;
+                public int lfWeight;
+                public byte lfItalic;
+                public byte lfUnderline;
+                public byte lfStrikeOut;
+                public byte lfCharSet;
+                public byte lfOutPrecision;
+                public byte lfClipPrecision;
+                public byte lfQuality;
+                public byte lfPitchAndFamily;
+                public fixed byte lfFaceName[32];
+        }
 
-	}
-
-	public struct HANDLE
-	{
-
-	}
+        public struct HANDLE
+        {
+                public IntPtr Value;
+        }
 
 	public unsafe struct OI
 	{
