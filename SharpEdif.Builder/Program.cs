@@ -253,16 +253,15 @@ public static class Program
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_editorName").Constant.Value));
                         tempInsts.Add(new Instruction(OpCodes.Stelem_I));
                         
-                       int paramCount = 0;
-                        foreach (var param in met.Parameters)
-                            if (param.Type != lprdata)
-                                paramCount++;
+                        int paramCount = met.Parameters.Count - 1;
+                        if (paramCount < 0) paramCount = 0;
                         if (paramCount > 0 && attr.ConstructorArguments.Count < 3)
                         {
                             Console.WriteLine($"ERROR: Parameter names undefined for {met.Name}. Produced .mfx might be invalid");
                         }
-                        var paramInfos =attr.ConstructorArguments[2].Value as List<CAArgument>;
-                        Console.WriteLine(paramInfos.Count);
+                        var paramInfos = attr.ConstructorArguments.Count >= 3
+                            ? attr.ConstructorArguments[2].Value as List<CAArgument>
+                            : new List<CAArgument>();
                         
                         
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,conditionParameterNames));
@@ -346,16 +345,15 @@ public static class Program
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_editorName").Constant.Value));
                         tempInsts.Add(new Instruction(OpCodes.Stelem_I));
                         
-                        int paramCount = 0;
-                        foreach (var param in met.Parameters)
-                            if (param.Type != lprdata)
-                                paramCount++;
+                        int paramCount = met.Parameters.Count - 1;
+                        if (paramCount < 0) paramCount = 0;
                         if (paramCount > 0 && attr.ConstructorArguments.Count < 3)
                         {
                             Console.WriteLine($"ERROR: Parameter names undefined for {met.Name}. Produced .mfx might be invalid");
                         }
-                        var paramInfos =attr.ConstructorArguments[2].Value as List<CAArgument>;
-                        Console.WriteLine(paramInfos.Count);
+                        var paramInfos = attr.ConstructorArguments.Count >= 3
+                            ? attr.ConstructorArguments[2].Value as List<CAArgument>
+                            : new List<CAArgument>();
                         
                         
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,actionParameterNames));
@@ -433,16 +431,15 @@ public static class Program
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_editorName").Constant.Value));
                         tempInsts.Add(new Instruction(OpCodes.Stelem_I));
 
-                        int paramCount = 0;
-                        foreach (var param in met.Parameters)
-                            if (param.Type != lprdata)
-                                paramCount++;
+                        int paramCount = met.Parameters.Count - 1;
+                        if (paramCount < 0) paramCount = 0;
                         if (paramCount > 0 && attr.ConstructorArguments.Count < 3)
                         {
                             Console.WriteLine($"ERROR: Parameter names undefined for {met.Name}. Produced .mfx might be invalid");
                         }
-                        var paramInfos = attr.ConstructorArguments[2].Value as List<CAArgument>;
-                        Console.WriteLine(paramInfos.Count);
+                        var paramInfos = attr.ConstructorArguments.Count >= 3
+                            ? attr.ConstructorArguments[2].Value as List<CAArgument>
+                            : new List<CAArgument>();
 
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,expressionParameterNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentExpressionCode));
