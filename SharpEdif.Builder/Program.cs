@@ -205,7 +205,8 @@ public static class Program
         var expressionParameterNames = sdk.FindField("expressionParameterNames");
         var expressionCallbacks = sdk.FindField("expressionCallbacks");
         
-        loadAces.Body.KeepOldMaxStack = true;
+        // let dnlib compute a proper max stack for the generated method
+        loadAces.Body.KeepOldMaxStack = false;
         PreprocessAPI(mod);
 
         var insts = loadAces.Body.Instructions;
@@ -242,27 +243,26 @@ public static class Program
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentConditionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,met.DeclaringType.FindField(met.Name+"_infos")));
                         tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,conditionNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentConditionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_menuName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,conditionEditorNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentConditionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_editorName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
                         
-                       int paramCount = 0;
-                        foreach (var param in met.Parameters)
-                            if (param.Type != lprdata)
-                                paramCount++;
+                        int paramCount = met.Parameters.Count - 1;
+                        if (paramCount < 0) paramCount = 0;
                         if (paramCount > 0 && attr.ConstructorArguments.Count < 3)
                         {
                             Console.WriteLine($"ERROR: Parameter names undefined for {met.Name}. Produced .mfx might be invalid");
                         }
-                        var paramInfos =attr.ConstructorArguments[2].Value as List<CAArgument>;
-                        Console.WriteLine(paramInfos.Count);
+                        var paramInfos = attr.ConstructorArguments.Count >= 3
+                            ? attr.ConstructorArguments[2].Value as List<CAArgument>
+                            : new List<CAArgument>();
                         
                         
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,conditionParameterNames));
@@ -335,27 +335,26 @@ public static class Program
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentActioncode));
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,met.DeclaringType.FindField(met.Name+"_infos")));
                         tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,actionNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentActioncode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_menuName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,actionEditorNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentActioncode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_editorName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
                         
-                        int paramCount = 0;
-                        foreach (var param in met.Parameters)
-                            if (param.Type != lprdata)
-                                paramCount++;
+                        int paramCount = met.Parameters.Count - 1;
+                        if (paramCount < 0) paramCount = 0;
                         if (paramCount > 0 && attr.ConstructorArguments.Count < 3)
                         {
                             Console.WriteLine($"ERROR: Parameter names undefined for {met.Name}. Produced .mfx might be invalid");
                         }
-                        var paramInfos =attr.ConstructorArguments[2].Value as List<CAArgument>;
-                        Console.WriteLine(paramInfos.Count);
+                        var paramInfos = attr.ConstructorArguments.Count >= 3
+                            ? attr.ConstructorArguments[2].Value as List<CAArgument>
+                            : new List<CAArgument>();
                         
                         
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,actionParameterNames));
@@ -422,27 +421,26 @@ public static class Program
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentExpressionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,met.DeclaringType.FindField(met.Name+"_infos")));
                         tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,expressionNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentExpressionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_menuName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,expressionEditorNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentExpressionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_editorName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
 
-                        int paramCount = 0;
-                        foreach (var param in met.Parameters)
-                            if (param.Type != lprdata)
-                                paramCount++;
+                        int paramCount = met.Parameters.Count - 1;
+                        if (paramCount < 0) paramCount = 0;
                         if (paramCount > 0 && attr.ConstructorArguments.Count < 3)
                         {
                             Console.WriteLine($"ERROR: Parameter names undefined for {met.Name}. Produced .mfx might be invalid");
                         }
-                        var paramInfos = attr.ConstructorArguments[2].Value as List<CAArgument>;
-                        Console.WriteLine(paramInfos.Count);
+                        var paramInfos = attr.ConstructorArguments.Count >= 3
+                            ? attr.ConstructorArguments[2].Value as List<CAArgument>
+                            : new List<CAArgument>();
 
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,expressionParameterNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentExpressionCode));
@@ -500,7 +498,7 @@ public static class Program
         insts.Add(new Instruction(OpCodes.Stsfld,conditionEditorNames));
 
         insts.Add(new Instruction(OpCodes.Ldc_I4,conditions.Count));
-        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new ArraySig(stringType,1))));
+        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new SZArraySig(stringType))));
         insts.Add(new Instruction(OpCodes.Stsfld,conditionParameterNames));
         
         
@@ -518,7 +516,7 @@ public static class Program
         insts.Add(new Instruction(OpCodes.Stsfld,actionEditorNames));
         
         insts.Add(new Instruction(OpCodes.Ldc_I4,actions.Count));
-        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new ArraySig(stringType,1))));
+        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new SZArraySig(stringType))));
         insts.Add(new Instruction(OpCodes.Stsfld,actionParameterNames));
         
         
@@ -536,7 +534,7 @@ public static class Program
         insts.Add(new Instruction(OpCodes.Stsfld,expressionEditorNames));
         
         insts.Add(new Instruction(OpCodes.Ldc_I4,expressions.Count));
-        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new ArraySig(stringType,1))));
+        insts.Add(new Instruction(OpCodes.Newarr,new TypeSpecUser(new SZArraySig(stringType))));
         insts.Add(new Instruction(OpCodes.Stsfld,expressionParameterNames));
         
         

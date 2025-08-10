@@ -103,6 +103,11 @@ namespace SharpEdif
             return CallRuntimeFunction(rdPtr, 17, 0xFFFFFFFF, 0);
         }
 
+        public static void GenerateEvent(LPRDATA* rdPtr, int cndID)
+        {
+            CallRuntimeFunction(rdPtr, 6, (uint)cndID, 0);
+        }
+
         public static string PtrToString(void* ptr)
         {
             var sb = new StringBuilder();

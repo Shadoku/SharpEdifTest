@@ -32,6 +32,7 @@ SharpEdif.Builder.exe $(SolutionDir)CompiledExtension\SharpEdif.dll </PostBuildE
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
+        <Reference Include="System.Drawing" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
