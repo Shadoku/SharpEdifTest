@@ -181,8 +181,6 @@ namespace SharpEdif
         {
             SharpEdif.AllocConsole();
             Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
-            SharpEdif.LoadACEs();
-
             return 0;
         }
 
