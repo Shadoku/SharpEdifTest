@@ -242,16 +242,16 @@ public static class Program
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentConditionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,met.DeclaringType.FindField(met.Name+"_infos")));
                         tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,conditionNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentConditionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_menuName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,conditionEditorNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentConditionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_editorName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
                         
                         int paramCount = met.Parameters.Count - 1;
                         if (paramCount < 0) paramCount = 0;
@@ -334,16 +334,16 @@ public static class Program
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentActioncode));
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,met.DeclaringType.FindField(met.Name+"_infos")));
                         tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,actionNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentActioncode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_menuName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,actionEditorNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentActioncode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_editorName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
                         
                         int paramCount = met.Parameters.Count - 1;
                         if (paramCount < 0) paramCount = 0;
@@ -420,16 +420,16 @@ public static class Program
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentExpressionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,met.DeclaringType.FindField(met.Name+"_infos")));
                         tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,expressionNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentExpressionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_menuName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
-                        
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
+
                         tempInsts.Add(new Instruction(OpCodes.Ldsfld,expressionEditorNames));
                         tempInsts.Add(new Instruction(OpCodes.Ldc_I4,currentExpressionCode));
                         tempInsts.Add(new Instruction(OpCodes.Ldstr,met.DeclaringType.FindField(met.Name+"_editorName").Constant.Value));
-                        tempInsts.Add(new Instruction(OpCodes.Stelem_I));
+                        tempInsts.Add(new Instruction(OpCodes.Stelem_Ref));
 
                         int paramCount = met.Parameters.Count - 1;
                         if (paramCount < 0) paramCount = 0;
