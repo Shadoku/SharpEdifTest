@@ -205,7 +205,8 @@ public static class Program
         var expressionParameterNames = sdk.FindField("expressionParameterNames");
         var expressionCallbacks = sdk.FindField("expressionCallbacks");
         
-        loadAces.Body.KeepOldMaxStack = true;
+        // let dnlib compute a proper max stack for the generated method
+        loadAces.Body.KeepOldMaxStack = false;
         PreprocessAPI(mod);
 
         var insts = loadAces.Body.Instructions;

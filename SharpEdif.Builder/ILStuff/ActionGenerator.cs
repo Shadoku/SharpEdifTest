@@ -16,7 +16,7 @@ public class ActionGenerator
             MethodAttributes.Public | MethodAttributes.Static);
         wrapper.DeclaringType = met.DeclaringType;
         wrapper.Body = new CilBody();
-        wrapper.Body.KeepOldMaxStack = true;
+        wrapper.Body.KeepOldMaxStack = false;
         var insts = wrapper.Body.Instructions;
 
         int currentIndex = 0;
@@ -88,7 +88,7 @@ public class ActionGenerator
             MethodAttributes.Public | MethodAttributes.Static);
         wrapper.DeclaringType = met.DeclaringType;
         wrapper.Body = new CilBody();
-        wrapper.Body.KeepOldMaxStack = true;
+        wrapper.Body.KeepOldMaxStack = false;
         var insts = wrapper.Body.Instructions;
         int sizeToAllocate = 6;
         List<string> parameterTypes = new List<string>();
